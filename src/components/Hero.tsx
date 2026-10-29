@@ -186,7 +186,8 @@ export default function Hero() {
     firstRun.current = false
     const ctx = gsap.context(() => {
       gsap.from('[data-hero-title] [data-line]', { yPercent: 110, duration: 1.2, stagger: 0.12, ease: 'power4.out', delay })
-      gsap.from('[data-pill]', { width: 0, marginLeft: 0, marginRight: 0, duration: 1.1, stagger: 0.15, ease: 'expo.inOut', delay: delay + 0.5 })
+      // Clip rather than width: the pill keeps its real size, so nothing measures it mid-load.
+      gsap.fromTo('[data-pill]', { clipPath: 'inset(0% 50% 0% 50% round 999px)' }, { clipPath: 'inset(0% 0% 0% 0% round 999px)', duration: 1.1, stagger: 0.15, ease: 'expo.inOut', delay: delay + 0.5 })
       gsap.from('[data-pill] img', { scale: 1.6, duration: 1.6, ease: 'expo.out', delay: delay + 0.5 })
       gsap.from('[data-hero-fade]', { y: 26, opacity: 0, duration: 1, stagger: 0.1, ease: 'power3.out', delay: delay + 0.3 })
       gsap.from('[data-polaroid]', { y: -120, rotate: 18, opacity: 0, duration: 1.3, ease: 'back.out(1.4)', delay: delay + 0.9 })
