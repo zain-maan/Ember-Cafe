@@ -12,14 +12,14 @@ Most cafés and restaurants have a website that is a menu PDF and a phone number
 
 ## The idea: one site, two moods
 
-Ember is a café in the morning and a fire-cooked dinner spot at night, so the website is too. It opens in the bright café mood, and a sun/moon switch in the nav flips it to the kitchen (the choice is remembered). The new mood spreads out of the switch as a growing circle (View Transitions API) and changes the colours, hero photo, headline, featured dishes, today's special and the default menu section.
+Ember is a café in the morning and a fire-cooked dinner spot at night, so the website is too. It opens in the candlelit kitchen mood, and a sun/moon switch in the nav flips it to the bright café (the choice is remembered). The new mood spreads out of the switch as a growing circle (View Transitions API) and changes the colours, hero photo, headline, featured dishes, today's special and the default menu section.
 
 ![Ember home page by day](docs/home-day.jpg)
 
 ## Features
 
 - **Editorial, handmade look**: photos set into the headline, pen-drawn underlines and arrows that draw themselves, handwritten notes from the team (Caveat), taped photo prints that drop onto each page hero, and a hero photo that opens from a card to full width as you scroll.
-- **Day ↔ Night mode**: a full theme switch from one set of CSS variables, light by default, remembered once chosen.
+- **Day ↔ Night mode**: a full theme switch from one set of CSS variables, dark by default, remembered once chosen.
 - **Steam / smoke hero**: a small hand-written WebGL shader (no library) curls steam over the photo by day and warm smoke by night, follows the pointer, and pauses off screen.
 - **Build your cup**: pick base, milk, size, sweetness, extra shot or ice; the SVG glass pours to new layer heights and colours, ice drops in, steam stops when iced, and the price counts to the new total. One tap adds it to the order.
 - **Online ordering**: menu with sections, dietary filters (vegetarian, vegan, gluten-free, spicy), search and a quick view with allergens and kitchen notes. Cards glide to their new places on every filter change (GSAP Flip). A dish flies into the bag when added.

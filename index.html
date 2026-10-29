@@ -7,14 +7,15 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Ember is a café by day and a fire-cooked kitchen by night on Gertrude Street, Fitzroy. Order coffee and brunch online, or book a table for dinner." />
-    <meta name="theme-color" content="#fbf8f3" />
+    <meta name="theme-color" content="#110c09" />
     <meta property="og:title" content="Ember Café & Kitchen | Coffee by day, fire by night in Fitzroy" />
     <meta property="og:description" content="House-roasted coffee, scratch brunch and an ironbark grill after dark. Order online or reserve a table in a minute." />
     <meta property="og:image" content="/images/hero-night-1920.webp" />
     <!-- Set the mood before first paint so the page never flashes the wrong colours. -->
     <script>
+      document.documentElement.dataset.mode = 'night'
       try {
-        document.documentElement.dataset.mode = localStorage.getItem('ember-mode-v2') === 'night' ? 'night' : 'day'
+        document.documentElement.dataset.mode = localStorage.getItem('ember-mode-v3') === 'day' ? 'day' : 'night'
       } catch (e) {}
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />

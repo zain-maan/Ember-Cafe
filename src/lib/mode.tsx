@@ -3,7 +3,7 @@ import { flushSync } from 'react-dom'
 import type { Mode } from '../data'
 import { prefersReducedMotion } from './motion'
 
-const KEY = 'ember-mode-v2'
+const KEY = 'ember-mode-v3'
 const THEME_COLOR: Record<Mode, string> = { day: '#fbf8f3', night: '#110c09' }
 
 type Ctx = { mode: Mode; setMode: (m: Mode, from?: { x: number; y: number }) => void }
@@ -18,9 +18,9 @@ function stored(): Mode | null {
   }
 }
 
-// The site opens in the bright café mood; the kitchen (night) mood is one tap away and remembered.
+// The site opens in the dark kitchen (night) mood; the bright café mood is one tap away and remembered.
 export function ModeProvider({ children }: { children: ReactNode }) {
-  const [mode, setState] = useState<Mode>(() => stored() ?? 'day')
+  const [mode, setState] = useState<Mode>(() => stored() ?? 'night')
 
   useLayoutEffect(() => {
     document.documentElement.dataset.mode = mode
