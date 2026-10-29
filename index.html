@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Ember is a café by day and a fire-cooked kitchen by night on Gertrude Street, Fitzroy. Order coffee and brunch online, or book a table for dinner." />
+    <meta name="theme-color" content="#fbf8f3" />
+    <meta property="og:title" content="Ember Café & Kitchen | Coffee by day, fire by night in Fitzroy" />
+    <meta property="og:description" content="House-roasted coffee, scratch brunch and an ironbark grill after dark. Order online or reserve a table in a minute." />
+    <meta property="og:image" content="/images/hero-night-1920.webp" />
+    <!-- Set the mood before first paint so the page never flashes the wrong colours. -->
+    <script>
+      try {
+        document.documentElement.dataset.mode = localStorage.getItem('ember-mode-v2') === 'night' ? 'night' : 'day'
+      } catch (e) {}
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Manrope:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet" />
+    <title>Ember Café & Kitchen | Coffee by day, fire by night in Fitzroy</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,380 @@
+@import 'tailwindcss';
+
+/* Two moods, one set of tokens. Day (the default) is a bright, airy café: warm white, clean ink and
+   a terracotta accent. Night is espresso and ember. Every colour in the UI reads from these variables,
+   so the whole site flips with one attribute. "Panel" colours are for the feature blocks (customiser,
+   footer, timeline): a soft peach card by day, a deep roast by night. */
+:root {
+  --bg: #fbf8f3;
+  --surface: #ffffff;
+  --muted: #f4ede3;
+  --ink: #1d1814;
+  --soft: #6b625a;
+  --line: #ebe2d6;
+  --accent: #d4622a;
+  --accent-ink: #ffffff;
+  --honey: #e8a33d;
+  --sage: #6f8f6a;
+  --deep: #231710;
+  --glow: rgba(232, 163, 61, 0.28);
+  --panel: #f8ebdd;
+  --panel-ink: #1d1814;
+  --panel-accent: #d4622a;
+  --shadow: 0 24px 60px -28px rgba(80, 45, 20, 0.35);
+  color-scheme: light;
+}
+
+:root[data-mode='night'] {
+  --bg: #110c09;
+  --surface: #1a130f;
+  --muted: #241a14;
+  --ink: #f3e6d4;
+  --soft: #a89585;
+  --line: #352820;
+  --accent: #ff8a3d;
+  --accent-ink: #1a0f08;
+  --honey: #f1bf69;
+  --sage: #9cbf94;
+  --deep: #090605;
+  --glow: rgba(255, 138, 61, 0.28);
+  --panel: #1a110b;
+  --panel-ink: #f6ead9;
+  --panel-accent: #f1bf69;
+  --shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.8);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-ink: var(--ink);
+  --color-soft: var(--soft);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-honey: var(--honey);
+  --color-sage: var(--sage);
+  --color-deep: var(--deep);
+  --color-panel: var(--panel);
+  --color-panel-ink: var(--panel-ink);
+  --color-panel-accent: var(--panel-accent);
+}
+
+@theme {
+  --color-cream: #f6ead9;
+  --color-espresso: #1a110b;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-sans: 'Manrope', system-ui, sans-serif;
+  --font-hand: 'Caveat', 'Segoe Print', cursive;
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-marquee-rev: marquee 48s linear infinite reverse;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-spin-slow: spin 18s linear infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-9px) rotate(-2deg);
+    }
+  }
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+html {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 0.6s ease,
+    color 0.6s ease;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--honey);
+  color: #1a110b;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* The day/night switch: the new mood grows out of the toggle as a circle (see lib/mode.tsx).
+   The browser's default crossfade is turned off so only the circle moves. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+html.mode-switching,
+html.mode-switching * {
+  transition: none !important;
+}
+
+.font-display {
+  font-optical-sizing: auto;
+  font-variation-settings: 'SOFT' 50, 'WONK' 0;
+}
+.italic-wonk {
+  font-style: italic;
+  font-variation-settings: 'SOFT' 100, 'WONK' 1;
+}
+
+.text-ember {
+  background: linear-gradient(100deg, var(--honey) 0%, var(--accent) 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Feature blocks: a peach glow by day, a roasted glow by night. */
+.bg-panel {
+  background:
+    radial-gradient(60% 70% at 85% 0%, rgba(232, 163, 61, 0.28), transparent 70%),
+    radial-gradient(50% 60% at 0% 100%, rgba(212, 98, 42, 0.14), transparent 70%),
+    var(--panel);
+  color: var(--panel-ink);
+}
+:root[data-mode='night'] .bg-panel {
+  background:
+    radial-gradient(60% 70% at 85% 0%, rgba(255, 138, 61, 0.2), transparent 70%),
+    radial-gradient(50% 60% at 0% 100%, rgba(241, 191, 105, 0.12), transparent 70%),
+    var(--panel);
+}
+
+.bg-roast {
+  background:
+    radial-gradient(60% 70% at 85% 0%, rgba(255, 138, 61, 0.2), transparent 70%),
+    radial-gradient(50% 60% at 0% 100%, rgba(241, 191, 105, 0.12), transparent 70%),
+    #1a110b;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@layer components {
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .eyebrow::before {
+    content: '';
+    width: 1.75rem;
+    height: 1.5px;
+    background: currentColor;
+  }
+
+  .btn {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border-radius: 999px;
+    padding: 0.95rem 1.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition:
+      color 0.35s,
+      transform 0.2s,
+      opacity 0.2s,
+      box-shadow 0.35s;
+  }
+  /* A fill that rises from the bottom on hover. */
+  .btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    transform: translateY(101%);
+    transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .btn:hover:not(:disabled)::after {
+    transform: translateY(0);
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+  .btn > svg:last-child {
+    transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .btn:hover:not(:disabled) > svg:last-child:not(:first-child) {
+    transform: translateX(4px);
+  }
+  .btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .btn-accent {
+    background: var(--accent);
+    color: var(--accent-ink);
+    box-shadow: 0 14px 34px -14px var(--accent);
+  }
+  .btn-accent::after {
+    background: var(--ink);
+  }
+  .btn-accent:hover:not(:disabled) {
+    color: var(--bg);
+  }
+  .btn-ink {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .btn-ink::after {
+    background: var(--accent);
+  }
+  .btn-ink:hover:not(:disabled) {
+    color: var(--accent-ink);
+  }
+  .btn-cream {
+    background: #f6ead9;
+    color: #1a110b;
+  }
+  .btn-cream::after {
+    background: var(--honey);
+  }
+  .btn-ghost {
+    border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  }
+  .btn-ghost::after {
+    background: color-mix(in srgb, currentColor 12%, transparent);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    padding: 0.5rem 1rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition:
+      background-color 0.25s,
+      border-color 0.25s,
+      color 0.25s;
+  }
+  .chip:hover {
+    border-color: var(--ink);
+  }
+  .chip[aria-pressed='true'],
+  .chip[aria-selected='true'],
+  .chip[aria-checked='true'] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+  }
+
+  .field {
+    width: 100%;
+    border-radius: 0.9rem;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+  }
+  .field::placeholder {
+    color: var(--soft);
+  }
+  .field:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 0;
+    border-color: transparent;
+  }
+  .field[aria-invalid='true'] {
+    border-color: #d9443a;
+  }
+
+  .card {
+    border-radius: 1.75rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: 0 1px 2px rgba(60, 35, 15, 0.04);
+  }
+
+}
+
+@utility shadow-soft {
+  box-shadow: var(--shadow);
+}
+
+/* Steam curling up off the cup: each wisp rises, drifts and fades, then starts again. */
+.cup-steam {
+  animation: cup-steam 3.4s ease-in-out infinite;
+  opacity: 0;
+}
+@keyframes cup-steam {
+  0% {
+    transform: translateY(20px) scaleY(0.8);
+    opacity: 0;
+  }
+  35% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(-50px) translateX(8px) scaleY(1.15);
+    opacity: 0;
+  }
+}
+
+/* Masked line wrappers created by SplitText. */
+.split-line {
+  padding-bottom: 0.08em;
+}
+
+.grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.1;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

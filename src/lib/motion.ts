@@ -1,0 +1,77 @@
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { SplitText } from 'gsap/SplitText'
+import { Flip } from 'gsap/Flip'
+import Lenis from 'lenis'
+
+gsap.registerPlugin(ScrollTrigger, SplitText, Flip)
+
+export const prefersReducedMotion = () =>
+  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+let lenis: Lenis | null = null
+
+// One Lenis instance drives smooth scrolling and keeps ScrollTrigger in sync with it.
+export function startSmoothScroll() {
+  if (lenis || prefersReducedMotion()) return () => {}
+  lenis = new Lenis({ duration: 1.15 })
+  lenis.on('scroll', ScrollTrigger.update)
+  const tick = (time: number) => lenis?.raf(time * 1000)
+  gsap.ticker.add(tick)
+  gsap.ticker.lagSmoothing(0)
+  return () => {
+    gsap.ticker.remove(tick)
+    lenis?.destroy()
+    lenis = null
+  }
+}
+
+// Elements marked data-skew lean with the speed of the scroll and settle back when it stops.
+// Desktop only: on phones it costs smoothness for little gain.
+export function startVelocitySkew() {
+  if (prefersReducedMotion() || !window.matchMedia('(pointer: fine)').matches) return () => {}
+  const proxy = { skew: 0 }
+  const apply = () => gsap.set('[data-skew]', { skewY: proxy.skew, force3D: true })
+  const st = ScrollTrigger.create({
+    onUpdate: (self) => {
+      const skew = gsap.utils.clamp(-5, 5, self.getVelocity() / -400)
+      if (Math.abs(skew) > Math.abs(proxy.skew)) {
+        proxy.skew = skew
+        gsap.to(proxy, { skew: 0, duration: 0.8, ease: 'power3', overwrite: true, onUpdate: apply })
+      }
+    },
+  })
+  return () => st.kill()
+}
+
+export function scrollToTop(smooth = false) {
+  if (smooth && lenis) return lenis.scrollTo(0, { duration: 1.4 })
+  if (smooth) return window.scrollTo({ top: 0, behavior: 'smooth' })
+  // `force` makes Lenis jump even while a previous smooth scroll is still running.
+  lenis?.scrollTo(0, { immediate: true, force: true })
+  window.scrollTo(0, 0)
+}
+
+export function scrollToElement(selector: string, offset = -88) {
+  const el = document.querySelector<HTMLElement>(selector)
+  if (!el) return
+  if (lenis) lenis.scrollTo(el, { offset, duration: 0.9 })
+  else window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + offset, behavior: 'smooth' })
+}
+
+export function setScrollLocked(locked: boolean) {
+  if (!lenis) return
+  if (locked) lenis.stop()
+  else lenis.start()
+}
+
+// The intro screen sets this so page animations can wait for it to lift.
+let introEndsAt = 0
+export function holdForIntro(ms: number) {
+  introEndsAt = performance.now() + ms
+}
+export function introDelay(extra = 0) {
+  return Math.max(0, (introEndsAt - performance.now()) / 1000) + extra
+}
+
+export { Flip, gsap, ScrollTrigger, SplitText }
