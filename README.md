@@ -2,7 +2,7 @@
 
 A multi-page website for a fictional café-restaurant on Gertrude Street, Fitzroy (Melbourne), built to turn visitors into **pickup orders and table bookings** instead of sending them to Uber Eats or a third-party booking app.
 
-**Live demo:** _add your Vercel link here_
+**Live demo:** https://ember-cafe-one.vercel.app
 
 ![Ember home page at night](docs/home-night.jpg)
 

@@ -22,7 +22,7 @@ A multi-page website for a café that turns into a fire-cooked restaurant after 
 | **Tools** | React · Vite · Tailwind CSS · GSAP · Lenis · WebGL |
 | **Key capabilities** | Day/Night Mode · Online Ordering · Table Reservations · Drink Builder · AI Host |
 | **Status** | Live |
-| **Live link** | _your-vercel-link_ |
+| **Live link** | https://ember-cafe-one.vercel.app |
 
 ## Project overview
 
