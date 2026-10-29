@@ -28,7 +28,7 @@ A multi-page website for a café that turns into a fire-cooked restaurant after 
 
 Independent cafés and restaurants lose 25 to 35% of every delivery-app order in commission, and most of their own websites are a menu PDF and a phone number. Ember needed a site that felt as warm as the room, and that let a guest order a coffee or book dinner in under a minute.
 
-Because Ember is two businesses in one (a bright brunch café by day, a candlelit grill by night), the site has two moods. It picks one from the time of day, and a sun/moon switch flips everything by hand: colours, hero photo, headline, featured dishes and the default menu section all change as the new mood spreads out of the switch in a circle.
+Because Ember is two businesses in one (a bright brunch café by day, a candlelit grill by night), the site has two moods. It opens in the bright café mood, and a sun/moon switch flips everything to the kitchen: colours, hero photo, headline, featured dishes and the default menu section all change as the new mood spreads out of the switch in a circle.
 
 From there, every path ends in revenue: the menu adds straight to a pickup or delivery order, a drink builder lets guests design their cup and send it to the bar, and a three-step booking flow ends with a calendar invite. An AI host answers questions and can start a booking from a single sentence.
 
